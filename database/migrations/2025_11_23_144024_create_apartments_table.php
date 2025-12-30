@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
-            $table->string('site');
-            $table->double('price');
-            $table->text('description');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('city');
+            $table->string('area');
+            $table->decimal('space',8,2);
+            $table->enum('size',['small','medium','large']);
+            $table->string('image')->nullable();
+            $table->text('description')->nullable();
+            $table->decimal('price',10,2);
+            $table->boolean('is_available')->default(true);
             $table->timestamps();
         });
     }

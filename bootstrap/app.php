@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Middleware\CheckAdminRole;
+use App\Http\Middleware\CheckApprovedUser;
+use App\Http\Middleware\CheckOwnerRole;
+use App\Http\Middleware\CheckRenterRole;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -12,7 +16,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias([
+            'CheckOwner'=>CheckOwnerRole::class,
+            'CheckAdmin'=>CheckAdminRole::class,
+            'CheckRenter'=>CheckRenterRole::class,
+            'CheckApprovedUser'=>CheckApprovedUser::class
+
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

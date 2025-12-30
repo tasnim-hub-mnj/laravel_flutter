@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profile_owners', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-             $table->string('first_name');
-            $table->string('last_name');
-            $table->string('profile_photo');
-            $table->date('date_pirth');
-            $table->string('identity_photo');
+            $table->foreignId('conversation_id')->constrained('conversations')->cascadeOnDelete();
+            $table->foreignId('sender_id')->constrained('users')->cascadeOnDelete();
+            $table->text('content');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profile_owners');
+        Schema::dropIfExists('messages');
     }
 };

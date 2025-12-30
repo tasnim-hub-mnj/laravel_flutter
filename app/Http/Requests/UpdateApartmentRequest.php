@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateApartmentRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'city'=>'sometimes|string|max:100',
+            'area'=>'sometimes|string|max:100',
+            'space'=>'sometimes|numeric|min:10|max:99999.99',
+            'size'=>'sometimes|in:small,medium,large',
+            'image'=>'sometimes|image|mimes:png,jpg,jpeg,gif|max:4096',
+            'description'=>'sometimes|string|max:500',
+            'price'=>'sometimes|numeric|min:0|max:99999999.99',
+            'is_available'=>'sometimes|boolean'
+        ];
+    }
+}
