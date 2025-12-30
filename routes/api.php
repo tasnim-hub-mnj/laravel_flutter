@@ -28,7 +28,7 @@ Route::post('logout',[UserController::class,'logout'])->middleware('auth:sanctum
 Route::middleware('auth:sanctum')->group(function(){
 //=============================================================================///////////////////
 //***********User Profile Management*************
-Route::put('profile',[ProfileController::class,'UpdateProfile']);
+Route::post('profile',[ProfileController::class,'UpdateProfile']);
 Route::get('profile',[ProfileController::class,'getUserProfile']);
 
 //=============================================================================///////////////////
@@ -68,7 +68,7 @@ Route::middleware('CheckOwner')->group(function()
 
 //***********Apartments CRUD*******************
 Route::post('apartment',[ApartmentController::class,'store'])->middleware('CheckApprovedUser');
-Route::put('apartment/{apartmentId}',[ApartmentController::class,'update']);
+Route::post('apartment/{apartmentId}',[ApartmentController::class,'update']);
 Route::delete('apartment/{apartmentId}',[ApartmentController::class,'destroy']);
 
 //***********Changed Approve_Status Reservation*************

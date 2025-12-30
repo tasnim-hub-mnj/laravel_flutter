@@ -42,8 +42,13 @@ class ApartmentController extends Controller
       {
         $user_id=Auth::user()->id;
         $apartment=Apartment::findOrFail($apartmentId);
+
         if($apartment->user_id != $user_id)
+        {
             return response()->json(['message'=>'Unauthorized'],403);
+        }
+        $data = $request->validated();
+
         if($request->hasFile('image'))
         {
             if ($apartment->image)
@@ -51,9 +56,9 @@ class ApartmentController extends Controller
                 Storage::disk('public')->delete($apartment->image);
             }
             $path=$request->file('image')->store('my apartment','public');
-            $validatedData['image']=$path;
+            $data['image'] = $path;
         }
-        $apartment->update($request->validated());
+        $apartment->update($data);
 
         return response()->json([
             'message' => 'Apartment Updated successfully',

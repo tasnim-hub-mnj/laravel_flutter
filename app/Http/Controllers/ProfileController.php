@@ -16,8 +16,9 @@ class ProfileController extends Controller
     public function UpdateProfile(UpdateProfileRequest $request)//تعديل
     {
             $user_id=Auth::user()->id;
-            $profile=Profile::findOrFail($user_id);//رقم المستخدم هو نفس رقم البروفايل
-            $data=[$request->validated()];
+            $profile_id=Auth::user()->profile->id;
+            $profile=Profile::findOrFail($profile_id);
+            $data=$request->validated();
 
             if($request->hasFile('personal_photo'))
             {
@@ -64,6 +65,36 @@ class ProfileController extends Controller
             ]
         ], 200);
     }
+    //     public function UpdateProfile(UpdateProfileRequest $request)
+// {
+//     $profile = Profile::where('user_id', Auth::id())->firstOrFail();
+//     $data = $request->validated();
+
+//     if ($request->hasFile('personal_photo')) {
+//         if ($profile->personal_photo) {
+//             Storage::disk('public')->delete($profile->personal_photo);
+//         }
+
+//         $data['personal_photo'] =
+//             $request->file('personal_photo')->store('profiles/personal', 'public');
+//     }
+
+//     if ($request->hasFile('identity_photo')) {
+//         if ($profile->identity_photo) {
+//             Storage::disk('public')->delete($profile->identity_photo);
+//         }
+
+//         $data['identity_photo'] =
+//             $request->file('identity_photo')->store('profiles/identity', 'public');
+//     }
+
+//     $profile->update($data);
+
+//     return response()->json([
+//         'message' => 'Profile updated successfully',
+//         'profile' => $profile->fresh(),
+//     ], 200);
+// }
 }
 
 

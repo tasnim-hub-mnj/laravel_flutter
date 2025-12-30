@@ -23,11 +23,11 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
 
-            'first_name'=>'string|max:100',
-            'last_name'=>'string|max:100',
-            'personal_photo'=>'nullable|image|mimes:png,jpg,jpeg,gif|max:4096',
-            'birth_date'=>'date|date_format:Y-m-d',
-            'identity_photo'=>'nullable|image|mimes:png,jpg,jpeg,gif|max:4096'
+            'first_name'=>'sometimes|string|max:100',
+            'last_name'=>'sometimes|string|max:100',
+            'personal_photo'=>'sometimes|image|mimes:png,jpg,jpeg,gif|max:4096',
+            'birth_date'=>'sometimes|date|date_format:Y-m-d',
+            'identity_photo'=>'sometimes|image|mimes:png,jpg,jpeg,gif|max:4096'
         ];
     }
 }
