@@ -13,7 +13,7 @@ class AdminController extends Controller
             'owners_count'=>User::where('role','owner')->count(),
             'renter_count'=>User::where('role','renter')->count(),
             'Apartment_count'=>Apartment::count()
-            ]);
+            ],200);
     }
     //______________________________________________________________________
     public function pendingUsers()//المستخدمين بانتظار الموافقة
@@ -25,7 +25,7 @@ class AdminController extends Controller
 
         return response()->json([
         'user'=>$user
-        ]);
+        ],200);
     }
     //______________________________________________________________________
     public function approvedUsers()//عرض المستخدمين الموافق عليهم
@@ -37,7 +37,7 @@ class AdminController extends Controller
 
         return response()->json([
         'user'=>$user
-        ]);
+        ],200);
     }
     //______________________________________________________________________
     // public function rejectedUsers()//عرض المستخدمين المرفوضين
@@ -51,13 +51,16 @@ class AdminController extends Controller
     public function approveUser(int $user_id)//الموافقة على المستخدم
     {
 
-        $user=User::with('profile')->where('approval_status','pending')->findOrFail($user_id);
+        $user=User::with('profile')
+        ->where('approval_status','pending')
+        ->findOrFail($user_id);
         $user->update([
         'approval_status'=>'approved',
         ]);
         return response()->json([
-        'message'=>'User approved successfully',
-        ]);
+        'message' => 'User '.$user->profile->first_name.''.$user->profile->last_name.' approved successfully',
+
+        ],200);
     }
     //______________________________________________________________________
     public function rejecteUser(int $user_id)//رفض المستخدم
@@ -65,7 +68,7 @@ class AdminController extends Controller
         $user=User::with('profile')
         ->where('approval_status','pending')
         ->findOrFail($user_id);
-        
+
         $user->update([
         'approval_status'=>'rejected',
         ]);
@@ -73,7 +76,7 @@ class AdminController extends Controller
 
         return response()->json([
         'message'=>'User rejected successfully and deleted',
-        ]);
+        ],200);
     }
     //______________________________________________________________________
     public function deleteUser(int $user_id)//حذف المستخدم
@@ -89,7 +92,7 @@ class AdminController extends Controller
 
         return response()->json([
         'message'=>'User delete successfully',
-        ]);
+        ],200);
     }
     //______________________________________________________واجهة التفاصيل___
 

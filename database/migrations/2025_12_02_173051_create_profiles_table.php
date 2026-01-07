@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('personal_photo')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('identity_photo')->nullable();
+            $table->string('tocken_fcm')->nullable();
             $table->timestamps();
         });
     }

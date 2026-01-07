@@ -16,6 +16,7 @@ class Profile extends Model
         'personal_photo',
         'birth_date',
         'identity_photo',
+        'tocken_fcm'
     ];
     protected $table = 'profiles';
     //____________________________________________________________

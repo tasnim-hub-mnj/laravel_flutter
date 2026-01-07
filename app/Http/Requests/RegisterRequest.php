@@ -30,7 +30,8 @@ class RegisterRequest extends FormRequest
         'last_name'=>'required|string|max:30',
         'birth_date'=>'required|max:30|date|date_format:Y-m-d',
         'personal_photo'=>'image|mimes:png,jpg,jpeg,gif|max:4096',
-        'identity_photo'=>'image|mimes:png,jpg,jpeg,gif|max:4096'
+        'identity_photo'=>'image|mimes:png,jpg,jpeg,gif|max:4096',
+        'tocken_fcm'=>'required|string|max:300'
         ];
     }
 }

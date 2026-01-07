@@ -27,6 +27,7 @@ class UserController extends Controller
                 'first_name'=> $request->first_name,
                 'last_name'=> $request->last_name,
                 'birth_date'=> $request->birth_date,
+                'tocken_fcm'=>$request->tocken_fcm,
             ];
         if($request->hasFile('personal_photo'))
         {
@@ -77,5 +78,16 @@ class UserController extends Controller
         ],200);
     }
 //__________________________________________________________________________
+    public function updatePassword(Request $request)
+    {
+        $user=Auth::user();
+        $user->update([
+        'password' => Hash::make($request->password),
+        ]);
+
+        return response()->json([
+        'message'=>'password approved successfully',
+        ],200);
+    }
 
 }
